@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  vault:
+    build: .
+    container_name: vault
+    ports:
+      - "8200:8200" # Expose Vault on port 8200
+    environment:
+      VAULT_ADDR: "http://127.0.0.1:8200" # Set Vault address
+      VAULT_DEV_LISTEN_ADDRESS: 0.0.0.0:8200
+    volumes:
+      - vault-data:/vault/file # Mount persistent storage for Vault data
+    networks:
+      - vault-network
+    restart: always
+
+volumes:
+  vault-data: # Define a volume for Vault's data
+
+networks:
+  vault-network:
+    driver: bridge
