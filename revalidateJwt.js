@@ -16,12 +16,12 @@ async function verifyJwtToken(req, res, next) {
   }
 
   try {
-    // Vault'a token doğrulaması yapma
+    // Performing token authentication to Vaul
     const response = await axios.post(VAULT_JWT_AUTH_URL, { jwt: token });
 
     if (response.data.auth.client_token) {
-      req.vaultToken = response.data.auth.client_token; // Vault'tan alınan client_token'ı sakla
-      req.tokenExpiration = response.data.auth.metadata.expiration; // Token'ın geçerlilik süresi
+      req.vaultToken = response.data.auth.client_token; // Store the client_token retrieved from Vault
+      req.tokenExpiration = response.data.auth.metadata.expiration; // Token's validity period
       return next(); // Token doğrulandı, devam et
     } else {
       return res.status(401).json({ message: "Invalid token" });

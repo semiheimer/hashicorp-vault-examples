@@ -17,12 +17,12 @@ async function verifyJwtToken(req, res, next) {
   }
 
   try {
-    // Vault'a token doğrulaması yapma
+    // Performing token authentication to Vault
     const response = await axios.post(VAULT_JWT_AUTH_URL, { jwt: token });
 
     if (response.data.auth.client_token) {
-      req.vaultToken = response.data.auth.client_token; // Vault'tan alınan client_token'ı sakla
-      return next(); // Token doğrulandı, devam et
+      req.vaultToken = response.data.auth.client_token; // Store the client_token retrieved from Vault
+      return next(); // token validated
     } else {
       return res.status(401).json({ message: "Invalid token" });
     }
