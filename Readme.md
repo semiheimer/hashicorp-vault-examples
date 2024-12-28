@@ -1,7 +1,8 @@
 # hashicorp vault
 
 ## 1st Method: Access via Container IP
-docker container ip al ve onunla eriş
+Check the IP of the Docker container with ip addr and access it using that IP.
+docker ps
 docker inspect vault-server | grep IPAddress
 export VAULT_ADDR="http://ip:8200"
 
@@ -10,14 +11,14 @@ export VAULT_ADDR="http://ip:8200"
 docker run -d --cap-add=IPC_LOCK -e 'VAULT_DEV_ROOT_TOKEN_ID=myroot' -e 'VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200' -p 8200:8200 --name=dev-vault hashicorp/vault
 
 ## Download Vault CLI and Add to Windows System Path
-## cli'ın vaulta erişim adresini ayarla
+## Set the CLI's access address for Vault.
 set VAULT_ADDR=http://127.0.0.1:8200
 
 ## Check Version
 vault --version
 ## Login
 vault login
-token=baslangıçta verilen token id olacak
+The token will be the initial token ID provided.
 
 ## Create Secret
 vault kv put secret/semih semihpassword=test123
